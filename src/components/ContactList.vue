@@ -17,6 +17,7 @@
               <tr v-for="(contact, key) in contacts" :key="key">
                   <td>{{contact.name}}</td>
                   <td>{{contact.email}}</td>
+                  <td><button @click="deleteContact(contact)" type="submit">Delete</button></td>
               </tr>
           </tbody>
       </table>  
@@ -43,6 +44,11 @@ export default {
   methods: {
         addContact() {
             this.contacts.push(this.newContact);
+        },
+        deleteContact(contact) {
+            let indexOfContactToDelete = this.contacts.indexOf(contact);
+            this.contacts.splice(indexOfContactToDelete, 1);
+            //console.log(indexOfContactToDelete);
         }
   },
   props: {
