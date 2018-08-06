@@ -6,7 +6,7 @@
           <input v-model="newContact.name" type="text" placeholder="name"> <br>
           <label>Email</label>
           <input v-model="newContact.email" type="text" placeholder="email"> <br>
-          <button @click="addContact" type="submit">Add contact</button>
+          <button @click="addContact()" type="submit">Add contact</button>
       </form>
       <table>
           <thead>
@@ -15,7 +15,8 @@
           </thead>
           <tbody>
               <tr v-for="(contact, key) in contacts" :key="key">
-                  <td>{{contact.name}}</td>
+                  <td v-if="contact.name === 'Jack'">{{contact.name}}</td>
+                  <td v-else>Not Jack</td>
                   <td>{{contact.email}}</td>
                   <td><button @click="deleteContact(contact)" type="submit">Delete</button></td>
               </tr>
