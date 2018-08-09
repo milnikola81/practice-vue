@@ -1,60 +1,38 @@
 <template>
-  <div>
-      <h1>Contact List</h1>
-      <form @submit.prevent>
-          <label>Name</label>
-          <input v-model="newContact.name" type="text" placeholder="name"> <br>
-          <label>Email</label>
-          <input v-model="newContact.email" type="text" placeholder="email"> <br>
-          <button @click="addContact()" type="submit">Add contact</button>
-      </form>
-      <table>
-          <thead>
-              <th>Name</th>
-              <th>Email</th>
-          </thead>
-          <tbody>
-              <tr v-for="(contact, key) in contacts" :key="key">
-                  <td v-if="contact.name === 'Jack'">{{contact.name}}</td>
-                  <td v-else>Not Jack</td>
-                  <td>{{contact.email}}</td>
-                  <td><button @click="deleteContact(contact)" type="submit">Delete</button></td>
-              </tr>
-          </tbody>
-      </table>  
-  </div>
+    <div class="list-group">
+        
+        <router-link
+        v-for="(contact, index) in contactList" :key="index"
+        :to="{name: 'contact-details', params: {id: contact.id}}"
+        tag="button"
+        exact-active-class="active">
+        {{contact.name}}
+        </router-link>
+
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Number</th>
+            </tr>
+            <tr v-for="(contact, index) in contactList" :key='index'>
+                <td>{{contact.id}}</td>
+                <td>{{contact.name}}</td>
+                <td>{{contact.email}}</td>
+                <td>{{contact.number}}</td>
+            </tr>
+        </table>
+    </div>
 </template>
 
 <script>
 export default {
-  name: 'ContactList',
-  data() {
-      return {
-          contacts: [
-              {name: "John", email: "john@gmail.com"},
-              {name: "Jack", email: "jack@gmail.com"},
-              {name: "Bob", email: "bob@gmail.com"},
-              {name: "Bill", email: "bill@gmail.com"}
-          ],
-          newContact: {
-              name: '',
-              email: ''
-          }
-      }
-  },
-  methods: {
-        addContact() {
-            this.contacts.push(this.newContact);
-        },
-        deleteContact(contact) {
-            let indexOfContactToDelete = this.contacts.indexOf(contact);
-            this.contacts.splice(indexOfContactToDelete, 1);
-            //console.log(indexOfContactToDelete);
+    props: ['contactList'],
+    data () {
+        return {
+            
         }
-  },
-  props: {
-    msg: String
-  }
+    }
 }
 </script>
-
